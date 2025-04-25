@@ -1,11 +1,11 @@
-from veterinaria import Veterinaria # Se importa la clase Veterinaria para poder gestionar la veterinaria
-from cliente import Cliente # Se importa la clase Cliente para poder gestionar los clientes
-from mascota import Mascota # Se importa la clase Mascota para poder gestionar las mascotas 
-from cita import CitaFactory # Se importa la clase CitaFactory para poder gestionar las citas
+from veterinaria import Veterinaria # esta la importacion de la clase Veterinarias
+from cliente import Cliente  # esta la importac
+from mascota import Mascota
+from cita import CitaFactory
 
 
 
-# Menú interactivo poder validar las opciones de la veterinaria
+# Menú interactivo
 def menu():
     veterinaria = Veterinaria()
     archivo_datos = "veterinaria_data.json"
@@ -18,15 +18,15 @@ def menu():
         print("4. Historial")
         print("5. Salir")
         
-        opcion = input("Seleccione una opción: ")
+        opcion = input("Seleccione una opcion: ")
 
-        if opcion == "1": # Se valida la opcion 1 para registrar un cliente
+        if opcion == "1":
             nombre = input("Nombre del cliente: ")
             telefono = input("Teléfono del cliente: ")
             cliente = Cliente(nombre, telefono)
             veterinaria.agregar_cliente(cliente)
 
-        elif opcion == "2": # Se valida la opcion 2 para registrar una mascota y asociarla al cliente registrado
+        elif opcion == "2":
             nombre_cliente = input("Nombre del cliente: ")
             cliente = veterinaria.buscar_cliente(nombre_cliente)
             if cliente:
@@ -39,7 +39,7 @@ def menu():
             else:
                 print("Error: Cliente no encontrado.")
 
-        elif opcion == "3": # Este es un submenu para gestionar las citas de la veterinaria
+        elif opcion == "3":
             print("\n----- GESTION DE CITAS -----")
             print("1. Programar cita")
             print("2. Cancelar cita")
@@ -47,7 +47,7 @@ def menu():
             print("4. Mostrar clientes y mascotas")
             print("5. Volver al menu principal")
             
-            sub_opcion = input("Seleccione una opcion: ") # Se valida la opcion 1 para programar una cita 
+            sub_opcion = input("Seleccione una opcion: ")
             if sub_opcion == "1":
                 nombre_cliente = input("Nombre del cliente: ")
                 cliente = veterinaria.buscar_cliente(nombre_cliente)
@@ -62,7 +62,7 @@ def menu():
                             veterinaria.agregar_cita(cita)
                     else:
                         print("Error: Mascota no encontrada.")
-            elif sub_opcion == "2": # Se valida la opcion 2 para cancelar una cita mostrar las citas programadas y cancelarlas
+            elif sub_opcion == "2":
                 fecha = input("Fecha de la cita a cancelar (YYYY-MM-DD): ")
                 nombre_mascota = input("Nombre de la mascota: ")
                 veterinaria.cancelar_cita(fecha, nombre_mascota)
@@ -75,7 +75,7 @@ def menu():
             else:
                 print("Opción no válida. Intente de nuevo.")
 
-        elif opcion == "4": # Se valida la opcion 4 para mostrar el historial de las citas 
+        elif opcion == "4":
             nombre_cliente = input("Nombre del cliente: ")
             cliente = veterinaria.buscar_cliente(nombre_cliente)
             if cliente:
@@ -89,12 +89,13 @@ def menu():
             else:
                 print("Error: Cliente no encontrado.")
 
-        elif opcion == "5": # Se valida la opcion 5 para salir del programa
+        elif opcion == "5":
             print("Saliendo del sistema...")
             break
 
         else:
             print("Opción no válida. Intente de nuevo.")
 
-if __name__ == "__main__": # Se ejecuta el menu principal
+if __name__ == "__main__":
     menu()
+

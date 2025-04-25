@@ -1,38 +1,32 @@
-# Se define la clase veterinaria, la cual se gestionara clientes y citas
 from cliente import Cliente
 from mascota import Mascota
 from cita import CitaFactory
 import json
-from os import path # Se importa la libreria path para trabajar con rutas como archivos
+from os import path
 class Veterinaria:
-    # Se inicializan con listas  vacias para clientes y citas
     def __init__(self):
         self.clientes = []
         self.citas = []
-        
- # Esto permite un nuevo cliente a la veterinaria
-    def agregar_cliente(self, cliente):  # Se verifica si ya existe un cliente con el mismo nombre para evitar duplicados
-        if any(c.nombre == cliente.nombre for c in self.clientes): # La funcion de any() se utiliza para verificar si al menos una condicion es verdadera
+
+    def agregar_cliente(self, cliente):
+        if any(c.nombre == cliente.nombre for c in self.clientes):
             print("Error: Ya existe un cliente con ese nombre.")
         else:
             self.clientes.append(cliente)
             print(f"Cliente {cliente.nombre} registrado con éxito.")
 
-# Se busca un cliente por su nombre en la lista de clientes registrados
-    def buscar_cliente(self, nombre): # Y se retorna el cliente encontrado de lo contrario, retorna None y se imprime un mensaje de error
+    def buscar_cliente(self, nombre):
         for cliente in self.clientes:
             if cliente.nombre == nombre:
                 return cliente
         print("Error: Cliente no encontrado.")
         return None
-    
-# Se agrega una cita a la lista de citas y se imprime un mensaje de confirmacion
+
     def agregar_cita(self, cita):
         self.citas.append(cita)
         print(f"Cita para {cita.mascota.nombre} registrada con éxito.")
 
-# Permite cancelar una cita específica buscando por fecha y nombre de la mascota.
-    def cancelar_cita(self, fecha, nombre_mascota): # Y si la cita es encontrada, la elimina de la lista de citas 
+    def cancelar_cita(self, fecha, nombre_mascota):
         cita_a_cancelar = None
         for cita in self.citas:
             if cita.fecha == fecha and cita.mascota.nombre == nombre_mascota:
@@ -53,16 +47,14 @@ class Veterinaria:
                 for mascota in cliente.mascotas:
                     print(f"  {mascota}")
 
-    # Muestra la información de todas las citas programadas.
-    def mostrar_citas(self):# Si no hay citas programadas, imprime un mensaje indicándolo.
+    def mostrar_citas(self):
         if not self.citas:
             print("No hay citas programadas.")
         else:
             for cita in self.citas:
                 print(cita)
 
-    # Se guarda la información de los clientes y las citas en un archivo JSON para poder ser recuperada en futuras sesiones.
-    def guardar_datos(self, archivo):# Y se incluye los detalles de cada cliente, sus mascotas y el historial de servicios de cada mascota,
+    def guardar_datos(self, archivo):
         datos = {
             "clientes": [
                 {
@@ -94,9 +86,6 @@ class Veterinaria:
             json.dump(datos, f, indent=4)
         print(f"Datos guardados en {archivo}.")
 
-    # Se carga la información de los clientes y las citas desde un archivo JSON.
-    # Si el archivo no existe, imprime un mensaje de error.
-    # Para cada cliente y cita leída, crea los objetos correspondientes y los agrega a las listas de la veterinaria.
     def cargar_datos(self, archivo):
         if not path.exists(archivo):
             print("Error: Archivo no encontrado.")
