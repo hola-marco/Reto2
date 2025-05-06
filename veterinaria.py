@@ -1,7 +1,7 @@
 # Importamos las clases necesarias desde otros módulos:
 from cliente import Cliente # - Cliente: para manejar la información de los clientes
-from mascota import Mascota # - Mascota: para gestionar los datos de las mascotas.
-from cita import CitaFactory# - CitaFactory: para crear objetos de tipo Cita de forma controlada.
+from mascota import Mascota 
+from cita import CitaFactory # - CitaFactory: para crear objetos de tipo Cita de forma controlada.
 # Importamos también módulos estándar de Python:
 import json # - json: para leer y escribir archivos en formato JSON (guardar y cargar datos).
 
@@ -25,11 +25,10 @@ class Veterinaria:
                 return cliente# Retorna el cliente si lo encuentra
         print("Error: Cliente no encontrado.")
         return None # Retorna None si no se encuentra el cliente
-
     def agregar_cita(self, cita):
-        self.citas.append(cita)    # Agrega la cita a la lista de citas
+        self.citas.append(cita)
+        cita.mascota.historial.agregar_servicio( f"{cita.fecha} - {cita.servicio}")
         print(f"Cita para {cita.mascota.nombre} registrada con éxito.")
-
     def cancelar_cita(self, fecha, nombre_mascota):
         cita_a_cancelar = None
         for cita in self.citas:    # Busca la cita que coincide con la fecha y el nombre de la mascota
